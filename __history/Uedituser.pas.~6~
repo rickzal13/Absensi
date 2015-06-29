@@ -1,0 +1,180 @@
+unit Uedituser;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, pngimage, Grids, DBGrids;
+
+type
+  TForm5 = class(TForm)
+    Image1: TImage;
+    txt_user: TEdit;
+    txt_password: TEdit;
+    txt_repassword: TEdit;
+    DBGrid1: TDBGrid;
+    Panel1: TPanel;
+    btn_simpan: TButton;
+    btn_edit: TButton;
+    btn_tambah: TButton;
+    btn_hapus: TButton;
+    btn_batal: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure btn_tambahClick(Sender: TObject);
+    procedure btn_simpanClick(Sender: TObject);
+    procedure btn_editClick(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
+    procedure btn_hapusClick(Sender: TObject);
+    procedure btn_batalClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    Procedure bersih;
+    Procedure taktif;
+    Procedure aktif;
+  end;
+
+var
+  Form5: TForm5;
+
+implementation
+
+uses Unit12;
+
+{$R *.dfm}
+procedure TForm5.bersih;
+begin
+  txt_user.Clear;
+  txt_password.Clear;
+  txt_repassword.Clear;
+end;
+
+
+procedure TForm5.btn_batalClick(Sender: TObject);
+begin
+    bersih;
+    taktif;
+end;
+
+procedure TForm5.btn_editClick(Sender: TObject);
+begin
+        if btn_edit.Caption='Edit' then
+    Begin
+       btn_edit.Caption:='update';
+       aktif;
+       btn_simpan.Enabled := false;
+       btn_hapus.Enabled := false;
+       btn_tambah.Enabled := false;
+       txt_user.SetFocus;
+    end
+  Else
+    begin
+     with dm.ADO_user do
+    begin
+      Edit;
+          FieldByName('nama').Value:=txt_user.Text;
+          FieldByName('password').Value:=txt_password.Text;
+          FieldByName('password_baru').Value:=txt_repassword.Text;
+      Post;
+    end;
+       Application.MessageBox('Data berhasil diUpdate','Info Update',MB_ICONINFORMATION);
+       btn_edit.Caption:='Edit';
+       Bersih;
+       taktif;
+       btn_tambah.Enabled := true;
+    End;
+end;
+
+procedure TForm5.btn_hapusClick(Sender: TObject);
+begin
+      with dm.ADO_user do
+  begin
+    Delete;
+  end;
+  Application.MessageBox('Data berhasil dihapus','Hapus',MB_ICONINFORMATION);
+  bersih;
+  taktif;
+  btn_tambah.Enabled := True;
+end;
+
+procedure TForm5.btn_simpanClick(Sender: TObject);
+begin
+  if dm.ADO_user.Locate('nama',txt_user.Text,[])  then
+    Begin
+      Application.MessageBox('User sudah ada, Coba User lain','User Login',MB_ICONERROR);
+      bersih;
+    End
+  else
+    begin
+      If txt_user.Text='' then
+          Application.MessageBox('User Tidak Boleh Kosong','..::Info user::..',MB_ICONERROR)
+      Else
+        Begin
+            If txt_password.Text<>txt_repassword.Text then
+              Application.MessageBox('Password Confirmasi anda salah','..::Konfirmasi::..',MB_ICONWARNING)
+            Else
+              Begin
+                with dm.ADO_user do
+                  begin
+                    Append;
+                    FieldByName('nama').Value:=txt_user.Text;
+                    FieldByName('password').Value:=txt_password.Text;
+                    FieldByName('password_baru').Value:=txt_repassword.Text;
+                    Post;
+                    Application.MessageBox('sukses tersimpan','pesan',MB_ICONINFORMATION);
+                    bersih;
+                    taktif;
+                  end;
+            End;
+    End;
+  end;
+end;
+
+procedure TForm5.btn_tambahClick(Sender: TObject);
+begin
+    aktif;
+    btn_edit.Enabled := false;
+    btn_hapus.Enabled := false;
+end;
+
+procedure TForm5.DBGrid1CellClick(Column: TColumn);
+begin
+      With dm.ADO_user do
+  Begin
+      txt_user.Text := FieldValues['nama'];
+      txt_password.Text := FieldValues['password'];
+      txt_repassword.Text := FieldValues['password_baru'];
+  End;
+  btn_edit.Enabled:=True;
+  btn_hapus.Enabled:=True;
+  btn_tambah.Enabled := false;
+end;
+
+procedure TForm5.taktif;
+begin
+  txt_user.Enabled := False;
+  txt_password.Enabled := False;
+  txt_repassword.Enabled := False;
+  btn_simpan.Enabled := false;
+  btn_edit.Enabled := false;
+  btn_hapus.Enabled := false;
+end;
+
+procedure TForm5.aktif;
+begin
+  txt_user.Enabled := True;
+  txt_password.Enabled := True;
+  txt_repassword.Enabled := True;
+  btn_simpan.Enabled := True;
+  btn_edit.Enabled := True;
+  btn_hapus.Enabled := True;
+end;
+
+procedure TForm5.FormCreate(Sender: TObject);
+begin
+     bersih;
+     taktif;
+end;
+
+end.

@@ -1,0 +1,175 @@
+unit Unit13;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, OoMisc, AdPort, pngimage, StdCtrls;
+
+type
+  TForm13 = class(TForm)
+    Panel1: TPanel;
+    ComboBox1: TComboBox;
+    ComboBox2: TComboBox;
+    Button1: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    Image1: TImage;
+    ApdComPort1: TApdComPort;
+    Timer3: TTimer;
+    Label3: TLabel;
+    Label4: TLabel;
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure ApdComPort1PortClose(Sender: TObject);
+    procedure ApdComPort1PortOpen(Sender: TObject);
+    procedure ApdComPort1TriggerAvail(CP: TObject; Count: Word);
+    procedure ComboBox1DropDown(Sender: TObject);
+  private
+    { Private declarations }
+    Port_State: boolean;
+    thedata: string;
+    procedure EnumComPorts(Ports: TStrings);
+    //procedure kopi;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form13: TForm13;
+  xyz: integer;
+  n, BAR: String;
+implementation
+
+uses Dabsensi;
+
+{$R *.dfm}
+
+procedure TForm13.ApdComPort1PortClose(Sender: TObject);
+begin
+    Port_State := False;
+  Button1.Caption := 'DisConnect';
+end;
+
+procedure TForm13.Button1Click(Sender: TObject);
+begin
+  form11.btnkonek;
+end;
+
+procedure TForm13.ComboBox1DropDown(Sender: TObject);
+begin
+  EnumComPorts(form13.ComboBox1.Items);
+end;
+
+procedure TForm13.ApdComPort1TriggerAvail(CP: TObject; Count: Word);
+var
+  thechar: String;
+
+  // buffer1:string;
+  i: integer;
+  a:integer;
+begin
+  // Memo1.Clear;
+
+  n := '';
+  for i := Count downto 1 do
+  begin
+
+    thechar := ApdComPort1.GetChar;
+    thedata := thedata + thechar;
+
+    if thechar = chr(10) then
+    begin
+      if trim(thedata) <> '' then
+      begin
+        // txt_id.Clear;
+//        txt_id.Text := trim(thedata);
+         a:=length(thedata);
+         a:=a-13;
+        form11.txt_id.Text:=trim(copy(thedata,a,12));
+
+       // if (trim(txt_id.Text) <> '') then
+          form11.tampil;
+//          edit1.Clear;
+        // Memo1.Lines.Add(trim(thedata));
+        n := n + trim(form11.txt_id.Text);
+
+      end;
+    end;
+  end;
+
+
+end;
+
+
+procedure TForm13.ApdComPort1PortOpen(Sender: TObject);
+begin
+    //  Port_State := true;
+  //Button1.Caption := 'Connected';
+end;
+
+
+procedure TForm13.EnumComPorts(Ports: TStrings);
+var
+  KeyHandle: HKEY;
+  ErrCode, Index: integer;
+  ValueName, Data: string;
+  ValueLen, DataLen, ValueType: DWORD;
+  TmpPorts: TStringList;
+begin
+  ErrCode := RegOpenKeyEx(HKEY_LOCAL_MACHINE, 'HARDWARE\DEVICEMAP\SERIALCOMM',
+    0, KEY_READ, KeyHandle);
+
+  if ErrCode <> ERROR_SUCCESS then
+  begin
+    // raise EComPortExt.Create('EnumComPorts',CError_RegError, ErrCode);
+    MessageBox(Handle, 'Registry error!!! alat belum terpasang',
+      pchar(Application.Title), MB_OK or MB_ICONERROR);
+    exit;
+  end;
+  TmpPorts := TStringList.Create;
+  try
+    Index := 0;
+    repeat
+      ValueLen := 256;
+      DataLen := 256;
+      SetLength(ValueName, ValueLen);
+      SetLength(Data, DataLen);
+      ErrCode := RegEnumValue(KeyHandle, Index, pchar(ValueName),
+{$IFDEF DELPHI_4_OR_HIGHER}
+        Cardinal(ValueLen),
+{$ELSE}
+        ValueLen,
+{$ENDIF}
+        nil, @ValueType, PByte(pchar(Data)), @DataLen);
+
+      if ErrCode = ERROR_SUCCESS then
+      begin
+        SetLength(Data, DataLen);
+        TmpPorts.Add(Data);
+        Inc(Index);
+      end
+      else if ErrCode <> ERROR_NO_MORE_ITEMS then
+        MessageBox(Handle,
+          'Registry error!!! Mungkin Modem belum Terpasang... ', pchar
+            (Application.Title), MB_OK or MB_ICONERROR);
+
+    until (ErrCode <> ERROR_SUCCESS);
+
+    TmpPorts.Sort;
+    Ports.Assign(TmpPorts);
+  finally
+    RegCloseKey(KeyHandle);
+    TmpPorts.Free;
+  end;
+
+end;
+procedure TForm13.FormCreate(Sender: TObject);
+begin
+  xyz := 1;
+  EnumComPorts(ComboBox1.Items);
+  if ComboBox1.Items.Count > 0 then
+    ComboBox1.ItemIndex := 0;
+end;
+
+end.

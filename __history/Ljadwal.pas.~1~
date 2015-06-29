@@ -1,0 +1,39 @@
+unit Ljadwal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, pngimage, ExtCtrls, StdCtrls, Grids, DBGrids;
+
+type
+  TFjadwal = class(TForm)
+    Panel1: TPanel;
+    Edit1: TEdit;
+    DBGrid1: TDBGrid;
+    ComboBox1: TComboBox;
+    Panel2: TPanel;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    procedure Image3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Fjadwal: TFjadwal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFjadwal.Image3Click(Sender: TObject);
+begin
+close;
+end;
+
+end.

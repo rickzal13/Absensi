@@ -1,0 +1,140 @@
+unit Unit2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Grids, DBGrids, ImgList, ComCtrls, jpeg, pngimage;
+
+type
+  TForm2 = class(TForm)
+    GroupBox1: TGroupBox;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    GroupBox2: TGroupBox;
+    Label11: TLabel;
+    Label14: TLabel;
+    Keluar: TButton;
+    DBGrid1: TDBGrid;
+    Hapus: TButton;
+    Button3: TButton;
+    ImageList1: TImageList;
+    Label15: TLabel;
+    Button1: TButton;
+    Label2: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    ComboBox1: TComboBox;
+    ComboBox2: TComboBox;
+    ComboBox3: TComboBox;
+    Label7: TLabel;
+    Label9: TLabel;
+    Label8: TLabel;
+    Label17: TLabel;
+    Edit3: TEdit;
+    DateTimePicker1: TDateTimePicker;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    DBGrid2: TDBGrid;
+    Edit8: TEdit;
+    ComboBox7: TComboBox;
+    Panel1: TPanel;
+    Label16: TLabel;
+    Image1: TImage;
+    Image2: TImage;
+    Button2: TButton;
+    RadioButton2: TRadioButton;
+    RadioButton1: TRadioButton;
+    Label3: TLabel;
+    Label12: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure KeluarClick(Sender: TObject);
+    procedure ComboBox1Change(Sender: TObject);
+    procedure ComboBox2Exit(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure bersih;
+    procedure pilihjurusan;
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.bersih;
+begin
+  Edit1.Clear;
+  Edit2.Clear;
+  Edit3.Clear;
+  Edit4.Clear;
+  Edit5.Clear;
+  Edit6.Clear;
+
+end;
+
+procedure TForm2.ComboBox1Change(Sender: TObject);
+begin
+  pilihjurusan;
+end;
+procedure TForm2.ComboBox2Exit(Sender: TObject);
+begin
+  if ComboBox2.Text='' then
+    ShowMessage('tidak boleh kosong');
+end;
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+  bersih;
+end;
+
+procedure TForm2.KeluarClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TForm2.pilihjurusan;
+begin
+    ComboBox2.Clear;
+  if ComboBox1.Text='TEKNIK SIPIL' then
+  begin
+     ComboBox2.Items.Add('KONSTRUKSI GEDUNG');
+     ComboBox2.Items.Add('KONSTRUKSI SIPIL');
+  end
+  else if ComboBox1.Text='TEKNIK ELEKTRO' then
+   begin
+     ComboBox2.Items.Add('TEKNIK LISTRIK');
+     ComboBox2.Items.Add('TEKNIK TELEKOMUNIKASI');
+     ComboBox2.Items.Add('TEKNIK ELEKTRONIKA');
+     ComboBox2.Items.Add('TEKNIK KOMPUTER JARINGAN');
+   end
+   else if ComboBox1.Text='TEKNIK KIMIA' then
+   begin
+     ComboBox2.Items.Add('TEKNIK KIMIA');
+     ComboBox2.Items.Add('TEKNOLOGI KIMIA INDUSTRI');
+   end
+   else if ComboBox1.Text='TEKNIK MESIN' then
+   begin
+     ComboBox2.Items.Add('TEKNIK MESIN');
+     ComboBox2.Items.Add('TEKNIK KONVER ENERGI');
+   end
+   else if ComboBox1.Text='ADMINISTRASI NIAGA' then
+   begin
+     ComboBox2.Items.Add('ADMINISTRASI BISNIS');
+     ComboBox2.Items.Add('BISNIS EKSPOR-IMPOR');
+   end
+   else if ComboBox1.Text='AKUNTANSI' then
+   begin
+     ComboBox2.Items.Add('AKUNTANSI');
+     ComboBox2.Items.Add('AKUNTASI MANAJERIAL');
+   end
+
+end;
+
+end.

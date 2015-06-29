@@ -1,0 +1,70 @@
+unit Unit2;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Grids, DBGrids, ImgList, ComCtrls, jpeg, pngimage;
+
+type
+  TForm2 = class(TForm)
+    GroupBox1: TGroupBox;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    GroupBox2: TGroupBox;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label10: TLabel;
+    Label14: TLabel;
+    Keluar: TButton;
+    DBGrid1: TDBGrid;
+    Hapus: TButton;
+    Button3: TButton;
+    ImageList1: TImageList;
+    Label1: TLabel;
+    Label15: TLabel;
+    Button1: TButton;
+    Label2: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    ComboBox1: TComboBox;
+    ComboBox2: TComboBox;
+    ComboBox3: TComboBox;
+    Label7: TLabel;
+    Label9: TLabel;
+    Label13: TLabel;
+    Label8: TLabel;
+    ComboBox4: TComboBox;
+    Label17: TLabel;
+    Edit3: TEdit;
+    DateTimePicker1: TDateTimePicker;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    ComboBox5: TComboBox;
+    ComboBox6: TComboBox;
+    DBGrid2: TDBGrid;
+    Edit8: TEdit;
+    ComboBox7: TComboBox;
+    Panel1: TPanel;
+    Label16: TLabel;
+    Image1: TImage;
+    Image2: TImage;
+    Button2: TButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,25 @@
+object DataModule9: TDataModule9
+  OldCreateOrder = False
+  Height = 420
+  Width = 392
+  object ADOConnection1: TADOConnection
+    Connected = True
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Password=illank;Persist Security Info=True;U' +
+      'ser ID=sa;Initial Catalog=absen'
+    LoginPrompt = False
+    Provider = 'SQLOLEDB.1'
+    Left = 168
+    Top = 40
+  end
+  object ADOQuery1: TADOQuery
+    Active = True
+    Connection = ADOConnection1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from tbmahasiswa')
+    Left = 56
+    Top = 136
+  end
+end

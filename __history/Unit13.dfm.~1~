@@ -1,0 +1,26 @@
+object Form13: TForm13
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
+  Caption = 'Form13'
+  ClientHeight = 212
+  ClientWidth = 531
+  Color = clHotLight
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 531
+    Height = 65
+    Align = alTop
+    TabOrder = 0
+  end
+end

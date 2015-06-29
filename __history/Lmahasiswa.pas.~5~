@@ -1,0 +1,68 @@
+unit Lmahasiswa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, pngimage, ExtCtrls, StdCtrls, Grids, DBGrids;
+
+type
+  TFmahasiswa = class(TForm)
+    Panel1: TPanel;
+    txt_cari: TEdit;
+    DBGrid1: TDBGrid;
+    ComboBox1: TComboBox;
+    Panel2: TPanel;
+    Image3: TImage;
+    Image4: TImage;
+    Image2: TImage;
+    Image1: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    procedure Image3Click(Sender: TObject);
+    procedure txt_cariChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Fmahasiswa: TFmahasiswa;
+
+implementation
+
+uses Unit12;
+
+{$R *.dfm}
+
+procedure TFmahasiswa.txt_cariChange(Sender: TObject);
+begin
+if ComboBox1.Text = 'NIM' then
+  begin
+    with dm.ADO_Mhs do
+    begin
+      sql.Clear;
+      sql.Text:= ('select * from tbmahasiswa where nim like '+QuotedStr('%'+txt_cari.Text+'%'));
+      Open;
+      DBGrid1.DataSource:= dm.Data_mhs;
+    end;
+  end
+else if ComboBox1.Text = 'NAMA' then
+  begin
+    with dm.ADO_Mhs do
+    begin
+      sql.Clear;
+      sql.Text:= ('select * from tbmahasiswa where nama like '+QuotedStr('%'+txt_cari.Text+'%'));
+      Open;
+      DBGrid1.DataSource:= dm.Data_mhs;
+    end;
+  end
+end;
+
+procedure TFmahasiswa.Image3Click(Sender: TObject);
+begin
+close;
+end;
+
+end.

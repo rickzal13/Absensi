@@ -1,0 +1,34 @@
+unit Uedituser;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, pngimage, Grids, DBGrids;
+
+type
+  TForm5 = class(TForm)
+    Image1: TImage;
+    txt_user: TEdit;
+    txt_password: TEdit;
+    txt_repassword: TEdit;
+    DBGrid1: TDBGrid;
+    btn_simpan: TButton;
+    btn_edit: TButton;
+    btn_tambah: TButton;
+    btn_hapus: TButton;
+    btn_batal: TButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form5: TForm5;
+
+implementation
+
+{$R *.dfm}
+
+end.

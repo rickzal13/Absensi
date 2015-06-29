@@ -1,0 +1,40 @@
+unit Lkelas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, pngimage, ExtCtrls, StdCtrls, Grids, DBGrids;
+
+type
+  TFkelas = class(TForm)
+    Panel1: TPanel;
+    Edit1: TEdit;
+    DBGrid1: TDBGrid;
+    ComboBox1: TComboBox;
+    Panel2: TPanel;
+    Image3: TImage;
+    Image7: TImage;
+    Image8: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    procedure Image3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Fkelas: TFkelas;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFkelas.Image3Click(Sender: TObject);
+begin
+close;
+end;
+
+end.

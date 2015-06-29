@@ -1,0 +1,52 @@
+unit Unit15;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, QRCtrls, qrpctrls, grimgctrl, jpeg, QuickRpt, ExtCtrls;
+
+type
+  TForm15 = class(TForm)
+    lap_semua: TQuickRep;
+    QRBand1: TQRBand;
+    QRLabel1: TQRLabel;
+    QRImage1: TQRImage;
+    QRLabel2: TQRLabel;
+    QRHRule1: TQRHRule;
+    QRLabel11: TQRLabel;
+    QRHRule3: TQRHRule;
+    QRBand2: TQRBand;
+    QRPShape10: TQRPShape;
+    QRPShape9: TQRPShape;
+    QRPShape11: TQRPShape;
+    QRPShape14: TQRPShape;
+    QRPShape15: TQRPShape;
+    QRPShape16: TQRPShape;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRBand3: TQRBand;
+    QRPShape8: TQRPShape;
+    QRPShape1: TQRPShape;
+    QRPShape2: TQRPShape;
+    QRPShape3: TQRPShape;
+    QRPShape6: TQRPShape;
+    QRPShape7: TQRPShape;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form15: TForm15;
+
+implementation
+
+{$R *.dfm}
+
+end.

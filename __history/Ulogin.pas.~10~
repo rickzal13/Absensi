@@ -1,0 +1,112 @@
+unit Ulogin;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, pngimage, ExtCtrls, StdCtrls;
+
+type
+  TForm3 = class(TForm)
+    log_nama: TEdit;
+    log_pass: TEdit;
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Timer1: TTimer;
+    procedure Image3Click(Sender: TObject);
+    procedure Image2Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure log_passKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+    procedure cek;
+  public
+    { Public declarations }
+    procedure bersih;
+  end;
+
+var
+  Form3: TForm3;
+
+implementation
+
+uses frmutama, Unit12;
+{$R *.dfm}
+
+procedure TForm3.cek;
+begin
+  with dm.ADO_user do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Text := 'select * from tbuser where nama=' + quotedstr(log_nama.Text);
+    Open;
+  end;
+  if dm.ADO_user.RecordCount = 0 then
+  begin
+    MessageDlg('Username tidak ada!' + #13 + 'Silakan ulangi.', mtWarning,
+      [mbOK], 0);
+    bersih;
+  end
+  else if dm.ADO_user.FieldByName('password').AsString <> log_pass.Text then
+  begin
+    MessageDlg('Username atau Password salah!' + #13 + 'Silakan Ulangi',
+      mtError, [mbOK], 0);
+    bersih;
+  end
+  else
+  begin
+    form1.RibbonPage1.Enabled := True;
+    form1.RibbonPage2.Enabled := True;
+    form1.RibbonPage3.Enabled := True;
+    form1.RibbonPage4.Enabled := True;
+     form1.StatusBar1.Panels.Items[0].Text := 'USER : '+log_nama.Text;
+     form1.StatusBar1.Panels.Items[2].Text := 'HARI : '+DateToStr(date);
+    bersih;
+  end;
+  // form3.close;
+  Timer1.Enabled := True;
+  // if (log_nama.Text='admin') and (log_pass.Text='admin') then
+
+end;
+
+procedure TForm3.FormCreate(Sender: TObject);
+begin
+  bersih;
+end;
+
+procedure TForm3.bersih;
+begin
+  log_nama.Clear;
+  log_pass.Clear;
+  // log_nama.SetFocus;
+end;
+
+procedure TForm3.Image2Click(Sender: TObject);
+begin
+  cek;
+end;
+
+procedure TForm3.Image3Click(Sender: TObject);
+begin
+  Close;
+
+end;
+
+procedure TForm3.log_passKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+    cek;
+end;
+
+procedure TForm3.Timer1Timer(Sender: TObject);
+begin
+  Close;
+  Timer1.Enabled := false;
+end;
+
+end.

@@ -1,0 +1,33 @@
+unit Lmk;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, Grids, DBGrids, pngimage;
+
+type
+  TFmk = class(TForm)
+    Panel1: TPanel;
+    Edit1: TEdit;
+    DBGrid1: TDBGrid;
+    ComboBox1: TComboBox;
+    Panel2: TPanel;
+    Image4: TImage;
+    Image2: TImage;
+    Image1: TImage;
+    Image3: TImage;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Fmk: TFmk;
+
+implementation
+
+{$R *.dfm}
+
+end.

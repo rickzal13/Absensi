@@ -1,0 +1,50 @@
+unit lpdosen;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, QuickRpt, QRCtrls, jpeg, QRPrntr, grimgctrl;
+
+type
+  TLprDosen = class(TForm)
+    lap_dosen: TQuickRep;
+    QRBand1: TQRBand;
+    QRLabel1: TQRLabel;
+    QRImage1: TQRImage;
+    QRLabel2: TQRLabel;
+    QRLabel11: TQRLabel;
+    QRHRule1: TQRHRule;
+    QRBand2: TQRBand;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRLabel5: TQRLabel;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel8: TQRLabel;
+    QRLabel9: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRHRule2: TQRHRule;
+    QRBand3: TQRBand;
+    QRDBText5: TQRDBText;
+    QRDBText1: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRLabel12: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel14: TQRLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  LprDosen: TLprDosen;
+
+implementation
+
+uses Unit12;
+
+{$R *.dfm}
+
+end.

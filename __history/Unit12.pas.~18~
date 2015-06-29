@@ -1,0 +1,50 @@
+unit Unit12;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Unit9, DB, ADODB;
+
+type
+  Tdm = class(TDataModule9)
+    Data_dosen: TDataSource;
+    ADO_dosen: TADOQuery;
+    ADOConnection1: TADOConnection;
+    Data_mhs: TDataSource;
+    ADO_Mhs: TADOQuery;
+    Data_umk: TDataSource;
+    ADO_umk: TADOQuery;
+    ADO_user: TADOQuery;
+    Data_user: TDataSource;
+    ADO_jadwal: TADOQuery;
+    Data_jadwal: TDataSource;
+    ADO_kelas: TADOQuery;
+    Data_kelas: TDataSource;
+    ADO_absen: TADOQuery;
+    Data_absen: TDataSource;
+    ADO_lap: TADOQuery;
+    ADO_tes: TADOQuery;
+    ADO_cek: TADOQuery;
+    ADOQuery1: TADOQuery;
+    ADOQuery2: TADOQuery;
+    ADO_tes_lgi: TADOQuery;
+    ADO_absen_dosen: TADOQuery;
+    Data_absen_dosen: TDataSource;
+    ADO_lap_dosen: TADOQuery;
+    ADO_SP: TADOQuery;
+    ADO_sp1: TADOQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dm: Tdm;
+
+implementation
+
+{$R *.dfm}
+
+end.

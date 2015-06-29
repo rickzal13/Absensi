@@ -1,0 +1,243 @@
+unit Udosen;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ComCtrls, ImgList, Grids, DBGrids, ExtCtrls, DB, ADODB;
+
+type
+  TDdosen = class(TForm)
+    Panel1: TPanel;
+    Label9: TLabel;
+    Image1: TImage;
+    Image2: TImage;
+    ImageList1: TImageList;
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    txt_nim: TEdit;
+    txt_nama: TEdit;
+    txt_t4: TEdit;
+    dt_tgl: TDateTimePicker;
+    txt_alamat: TEdit;
+    txt_no: TEdit;
+    cmb_jenis: TComboBox;
+    DBGrid1: TDBGrid;
+    ComboBox2: TComboBox;
+    txt_cari: TEdit;
+    Panel2: TPanel;
+    btn_batal: TButton;
+    btn_hapus: TButton;
+    btn_tambah: TButton;
+    btn_edit: TButton;
+    btn_simpan: TButton;
+    Label10: TLabel;
+    Button1: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure btn_simpanClick(Sender: TObject);
+    procedure btn_tambahClick(Sender: TObject);
+    procedure btn_editClick(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
+    procedure btn_hapusClick(Sender: TObject);
+    procedure btn_batalClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure txt_cariChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure bersih;
+    procedure aktif;
+    procedure taktif;
+  end;
+
+var
+  Ddosen: TDdosen;
+  t:string;
+
+implementation
+
+uses Unit12;
+
+{$R *.dfm}
+
+procedure TDdosen.bersih;
+begin
+txt_nim.Clear;
+txt_nama.Clear;
+txt_t4.Clear;
+cmb_jenis.Text := '--pilih--';
+txt_alamat.Clear;
+txt_no.Clear;
+end;
+
+procedure TDdosen.btn_batalClick(Sender: TObject);
+begin
+    bersih;
+    taktif;
+    btn_tambah.Enabled := true;
+end;
+
+procedure TDdosen.btn_editClick(Sender: TObject);
+begin
+      if btn_edit.Caption='Edit' then
+    Begin
+       btn_edit.Caption:='update';
+       aktif;
+       btn_simpan.Enabled := false;
+       btn_hapus.Enabled := false;
+       btn_tambah.Enabled := false;
+       txt_nim.SetFocus;
+    end
+  Else
+    begin
+     with dm.ADO_dosen do
+    begin
+      Edit;
+      FieldByName('nim').Value:=txt_nim.Text;
+      FieldByName('nama').Value:=txt_nama.Text;
+      FieldByName('tgl_lahir').Value:= dt_tgl.Date;
+      FieldByName('jenis_kelamin').Value:=cmb_jenis.Text;
+      FieldByName('almt').Value:=txt_alamat.Text;
+      FieldByName('no_hp').Value:=txt_no.Text;
+      Post;
+    end;
+        Application.MessageBox('Data berhasil diUpdate','Info Update',MB_ICONINFORMATION);
+       btn_edit.Caption:='Edit';
+       Bersih;
+       taktif;
+       btn_tambah.Enabled := true;
+    end;
+end;
+
+procedure TDdosen.btn_hapusClick(Sender: TObject);
+begin
+    with dm.ADO_dosen do
+  begin
+    Delete;
+  end;
+  Application.MessageBox('Data berhasil dihapus','Hapus',MB_ICONINFORMATION);
+  bersih;
+  taktif;
+  btn_tambah.Enabled := true;
+end;
+
+procedure TDdosen.btn_simpanClick(Sender: TObject);
+
+begin
+    if (txt_nim.Text<>'')and (txt_nama.Text<>'')  then// and (txtalmt.Text <>'') and (txthp.Text<>'') then
+    with dm.ADO_dosen do
+    begin
+      Append;
+      FieldByName('nim').Value:=txt_nim.Text;
+      FieldByName('nama').Value:=txt_nama.Text;
+      FieldByName('tempat').Value:=txt_t4.Text;
+      FieldByName('tgl_lahir').Value:= dt_tgl.DateMode;
+      FieldByName('jenis_kelamin').Value:=cmb_jenis.Text;
+      FieldByName('almt').Value:=txt_alamat.Text;
+      FieldByName('no_hp').Value:=txt_no.Text;
+      Post;
+      Application.MessageBox('sukses tersimpan','pesan',MB_OK);
+      bersih;
+      taktif;
+    end;
+end;
+
+procedure TDdosen.btn_tambahClick(Sender: TObject);
+begin
+    aktif;
+    btn_edit.Enabled := false;
+    btn_hapus.Enabled := false;
+end;
+
+procedure TDdosen.Button1Click(Sender: TObject);
+begin
+close;
+end;
+
+procedure TDdosen.DBGrid1CellClick(Column: TColumn);
+begin
+       With dm.ADO_dosen do
+  Begin
+     txt_nim.Text:=FieldValues['nim'];
+     txt_nama.Text:=FieldValues['nama'];
+     txt_t4.Text:=FieldValues['tempat'];
+     dt_tgl.Date:=FieldValues['tgl_lahir'];
+     cmb_jenis.Text:= FieldValues['jenis_kelamin'];
+     txt_alamat.Text:=FieldValues['almt'];
+     txt_no.Text := FieldValues['no_hp'];
+
+  End;
+  btn_edit.Enabled:=True;
+  btn_hapus.Enabled:=True;
+  btn_tambah.Enabled := false;
+end;
+
+procedure TDdosen.FormCreate(Sender: TObject);
+begin
+    bersih;
+    taktif;
+end;
+
+procedure TDdosen.aktif;
+begin
+    txt_nim.Enabled := true;
+    txt_nama.Enabled := true;
+    txt_t4.Enabled := true;
+    dt_tgl.Enabled := true;
+    txt_alamat.Enabled := true;
+    cmb_jenis.Enabled := true;
+    txt_no.Enabled := true;
+    btn_simpan.Enabled := true;
+    btn_edit.Enabled := true;
+    btn_hapus.Enabled := true;
+    txt_nim.SetFocus;
+end;
+
+procedure TDdosen.taktif;
+begin
+    txt_nim.Enabled := False;
+    txt_nama.Enabled := False;
+    txt_t4.Enabled := False;
+    dt_tgl.Enabled := False;
+    txt_alamat.Enabled := False;
+    cmb_jenis.Enabled := false;
+    txt_no.Enabled := False;
+    btn_simpan.Enabled := False;
+    btn_edit.Enabled := False;
+    btn_hapus.Enabled := False;
+end;
+
+
+
+procedure TDdosen.txt_cariChange(Sender: TObject);
+begin
+if ComboBox2.Text = 'NIM' then
+  begin
+    with dm.ADO_dosen do
+    begin
+      sql.Clear;
+      sql.Text:= ('select * from tbdosen where nim like '+QuotedStr('%'+txt_cari.Text+'%'));
+      Open;
+      DBGrid1.DataSource:= dm.Data_dosen;
+    end;
+  end
+else if ComboBox2.Text = 'NAMA' then
+  begin
+    with dm.ADO_dosen do
+    begin
+      sql.Clear;
+      sql.Text:= ('select * from tbdosen where nama like '+QuotedStr('%'+txt_cari.Text+'%'));
+      Open;
+      DBGrid1.DataSource:= dm.Data_dosen;
+    end;
+  end;
+end;
+
+end.

@@ -1,0 +1,183 @@
+unit Ukelas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, Grids, DBGrids, ImgList;
+
+type
+  TForm6 = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    Image1: TImage;
+    Image2: TImage;
+    GroupBox1: TGroupBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    cmb_jurusan: TComboBox;
+    cmb_program: TComboBox;
+    Label8: TLabel;
+    cmb_waktu: TComboBox;
+    DBGrid1: TDBGrid;
+    btn_batal: TButton;
+    btn_hapus: TButton;
+    btn_tambah: TButton;
+    btn_edit: TButton;
+    btn_simpan: TButton;
+    Label9: TLabel;
+    image: TImageList;
+    txt_jurusan: TEdit;
+    txt_kelas: TEdit;
+    procedure btn_simpanClick(Sender: TObject);
+    procedure btn_editClick(Sender: TObject);
+    procedure btn_tambahClick(Sender: TObject);
+    procedure btn_hapusClick(Sender: TObject);
+    procedure btn_batalClick(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure bersih;
+    procedure aktif;
+    procedure taktif;
+  end;
+
+var
+  Form6: TForm6;
+
+implementation
+
+uses Unit12;
+
+{$R *.dfm}
+
+procedure TForm6.bersih;
+begin
+     txt_jurusan.Clear;
+     cmb_jurusan.Text := '--Pilih--';
+     cmb_program.Text := '--pilih--';
+     txt_kelas.Text := '--pilih--';
+     cmb_waktu.Text := '--Pilih--';
+
+end;
+
+procedure TForm6.btn_batalClick(Sender: TObject);
+begin
+  bersih;
+  taktif;
+  btn_tambah.Enabled := true;
+end;
+
+procedure TForm6.btn_editClick(Sender: TObject);
+begin
+      if btn_edit.Caption='Edit' then
+    Begin
+       btn_edit.Caption:='update';
+       aktif;
+       btn_simpan.Enabled := false;
+       btn_hapus.Enabled := false;
+       btn_tambah.Enabled := false;
+       txt_jurusan.SetFocus;
+    end
+  Else
+    begin
+     with dm.ADO_kelas do
+    begin
+      Edit;
+      FieldByName('kode_jurusan').Value:=txt_jurusan.Text;
+      FieldByName('jurusan').Value:=cmb_jurusan.Text;
+      FieldByName('program_studi').Value:=cmb_program.Text;
+      FieldByName('kelas').Value:=txt_kelas.Text;
+      FieldByName('waktu').Value:=cmb_waktu.Text;
+      Post;
+    end;
+       Application.MessageBox('Data berhasil diUpdate','Info Update',MB_ICONINFORMATION);
+       btn_edit.Caption:='Edit';
+       Bersih;
+       taktif;
+       btn_tambah.Enabled := true;
+    End;
+end;
+
+procedure TForm6.btn_hapusClick(Sender: TObject);
+begin
+      with dm.ADO_kelas do
+  begin
+    Delete;
+  end;
+  Application.MessageBox('Data berhasil dihapus','Hapus',MB_ICONINFORMATION);
+  bersih;
+  taktif;
+  btn_tambah.Enabled := True;
+end;
+
+procedure TForm6.btn_simpanClick(Sender: TObject);
+begin
+      if (txt_jurusan.Text<>'')  then// and (txtalmt.Text <>'') and (txthp.Text<>'') then
+    with dm.ADO_kelas do
+    begin
+      Append;
+      FieldByName('kode_jurusan').Value:=txt_jurusan.Text;
+      FieldByName('jurusan').Value:=cmb_jurusan.Text;
+      FieldByName('program_studi').Value:=cmb_program.Text;
+      FieldByName('kelas').Value:=txt_kelas.Text;
+      FieldByName('waktu').Value:=cmb_waktu.Text;
+      Post;
+      Application.MessageBox('sukses tersimpan','pesan',MB_ICONINFORMATION);
+      bersih;
+      taktif;
+    end;
+end;
+
+procedure TForm6.btn_tambahClick(Sender: TObject);
+begin
+    aktif;
+    btn_edit.Enabled := false;
+    btn_hapus.Enabled := false;
+end;
+
+procedure TForm6.DBGrid1CellClick(Column: TColumn);
+begin
+      With dm.ADO_kelas do
+  Begin
+     txt_jurusan.Text:=FieldValues['kode_jurusan'];
+     cmb_jurusan.Text:=FieldValues['jurusan'];
+     cmb_program.Text:= FieldValues['program_studi'];
+     txt_kelas.Text:=FieldValues['kelas'];
+     cmb_waktu.Text:=FieldValues['waktu'];
+  End;
+  btn_edit.Enabled:=True;
+  btn_hapus.Enabled:=True;
+  btn_tambah.Enabled := false;
+end;
+
+procedure Tform6.aktif;
+begin
+      txt_jurusan.Enabled := True;
+      cmb_jurusan.Enabled := True;
+      cmb_program.Enabled := True;
+      txt_kelas.Enabled := True;
+      cmb_waktu.Enabled := True;
+      btn_simpan.Enabled := true;
+      btn_edit.Enabled := true;
+      btn_hapus.Enabled := true;
+end;
+
+procedure Tform6.taktif;
+begin
+     txt_jurusan.Enabled := False;
+      cmb_jurusan.Enabled := False;
+      cmb_program.Enabled := False;
+      txt_kelas.Enabled := False;
+      cmb_waktu.Enabled := False;
+      btn_simpan.Enabled := False;
+      btn_edit.Enabled := False;
+      btn_hapus.Enabled := False;
+end;
+end.

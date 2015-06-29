@@ -1,0 +1,85 @@
+unit Tmahasiswa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Grids, DBGrids;
+
+type
+  Tflmahasiswa = class(TForm)
+    Panel1: TPanel;
+    DBGrid1: TDBGrid;
+    Edit1: TEdit;
+    ComboBox1: TComboBox;
+    Image1: TImage;
+    Image2: TImage;
+    Label1: TLabel;
+    Panel2: TPanel;
+    Label2: TLabel;
+    procedure FormActivate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  flmahasiswa: Tflmahasiswa;
+  e : Int16;
+implementation
+
+uses Unit12;
+
+{$R *.dfm}
+
+procedure Tflmahasiswa.Button1Click(Sender: TObject);
+begin
+with dm.ADO_sp1 do
+    begin
+      SQL.Clear;
+      SQL.Add('select * from tbabsensi');
+      Open;
+      while not Eof do
+      begin
+        e := SQL.Add('sum(alfa)') ;
+        Append;
+        if e = 14 then
+            FieldByName('ket').Value := 'SP1'
+        else if e = 28 then
+            FieldByName('ket').Value := 'SP2'
+        else if e = 48 then
+            FieldByName('ket').Value := 'SP3'
+        else
+            FieldByName('ket').Value := 'tidak sp';
+        Next;
+      end;
+    end;
+end;
+
+procedure Tflmahasiswa.FormActivate(Sender: TObject);
+begin
+with dm.ADO_absen do
+    begin
+      SQL.Clear;
+      SQL.Add('SELECT     nama, SUM(alfa) AS jml FROM tbabsensi GROUP BY nama');
+      Open;
+      while not Eof do
+      begin
+        e := sql.Add('sum(alfa)');
+        if e = 14 then
+            FieldByName('ket').Value := 'SP1'
+        else if e = 28 then
+            FieldByName('ket').Value := 'SP2'
+        else if e = 48 then
+            FieldByName('ket').Value := 'SP3'
+        else
+            FieldByName('ket').Value := 'tidak sp';
+        Next;
+      end;
+    end;
+
+end;
+
+end.

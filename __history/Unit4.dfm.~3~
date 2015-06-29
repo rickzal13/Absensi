@@ -1,0 +1,126 @@
+object Form4: TForm4
+  Left = 244
+  Top = 110
+  BorderStyle = bsDialog
+  Caption = 'Input Data Dosen'
+  ClientHeight = 539
+  ClientWidth = 795
+  Color = clHotLight
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesigned
+  PixelsPerInch = 96
+  TextHeight = 13
+  object GroupBox1: TGroupBox
+    Left = 24
+    Top = 32
+    Width = 385
+    Height = 241
+    Caption = 'Data'
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 16
+      Top = 72
+      Width = 60
+      Height = 13
+      Caption = 'Nama Dosen'
+    end
+    object Label2: TLabel
+      Left = 16
+      Top = 35
+      Width = 20
+      Height = 13
+      Caption = 'Nim '
+    end
+    object Label3: TLabel
+      Left = 16
+      Top = 106
+      Width = 73
+      Height = 13
+      Caption = 'tempat/tgl lahir'
+    end
+    object Label4: TLabel
+      Left = 16
+      Top = 140
+      Width = 33
+      Height = 13
+      Caption = 'Alamat'
+    end
+    object Label5: TLabel
+      Left = 16
+      Top = 175
+      Width = 54
+      Height = 13
+      Caption = 'Mata kuliah'
+    end
+    object Edit1: TEdit
+      Left = 94
+      Top = 30
+      Width = 121
+      Height = 21
+      TabOrder = 0
+      Text = 'Edit1'
+    end
+    object Edit2: TEdit
+      Left = 93
+      Top = 69
+      Width = 121
+      Height = 21
+      TabOrder = 1
+      Text = 'Edit2'
+    end
+    object Edit3: TEdit
+      Left = 94
+      Top = 101
+      Width = 119
+      Height = 21
+      TabOrder = 2
+      Text = 'Edit3'
+    end
+    object DateTimePicker1: TDateTimePicker
+      Left = 220
+      Top = 102
+      Width = 98
+      Height = 21
+      Date = 41067.353207523150000000
+      Time = 41067.353207523150000000
+      TabOrder = 3
+    end
+    object Edit4: TEdit
+      Left = 92
+      Top = 132
+      Width = 121
+      Height = 21
+      TabOrder = 4
+      Text = 'Edit4'
+    end
+    object Edit5: TEdit
+      Left = 92
+      Top = 169
+      Width = 121
+      Height = 21
+      TabOrder = 5
+      Text = 'Edit5'
+    end
+    object Button1: TButton
+      Left = 221
+      Top = 163
+      Width = 86
+      Height = 33
+      Caption = 'Tambah MK'
+      TabOrder = 6
+    end
+  end
+  object GroupBox2: TGroupBox
+    Left = 424
+    Top = 32
+    Width = 363
+    Height = 241
+    Caption = 'GroupBox2'
+    TabOrder = 1
+  end
+end

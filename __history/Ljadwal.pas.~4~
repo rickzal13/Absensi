@@ -1,0 +1,66 @@
+unit Ljadwal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, pngimage, ExtCtrls, StdCtrls, Grids, DBGrids;
+
+type
+  TFjadwal = class(TForm)
+    Panel1: TPanel;
+    txt_cari: TEdit;
+    DBGrid1: TDBGrid;
+    cmb_cri: TComboBox;
+    Panel2: TPanel;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    procedure Image3Click(Sender: TObject);
+    procedure txt_cariChange(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Fjadwal: TFjadwal;
+
+implementation
+
+uses Unit12;
+
+{$R *.dfm}
+
+procedure TFjadwal.txt_cariChange(Sender: TObject);
+begin
+if cmb_cri.Text = 'KODE MK' then
+  begin
+    with dm.ADO_jadwal do
+    begin
+      sql.Clear;
+      sql.Text:= ('select * from tbjadwal where Kode_matakuliah like '+QuotedStr('%'+txt_cari.Text+'%'));
+      Open;
+      DBGrid1.DataSource:= dm.Data_jadwal;
+    end;
+  end
+  else if cmb_cri.Text = 'MATA KULIAH' then
+  begin
+    with dm.ADO_jadwal do
+    begin
+      sql.Clear;
+      sql.Text:= ('select * from tbjadwal where matakuliah like '+QuotedStr('%'+txt_cari.Text+'%'));
+      Open;
+      DBGrid1.DataSource:= dm.Data_jadwal;
+    end;
+  end
+end;
+
+procedure TFjadwal.Image3Click(Sender: TObject);
+begin
+close;
+end;
+
+end.
