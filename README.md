@@ -1,2 +1,2 @@
 # Absensi
-Absensi Menggunakan delphi 2010...
+Absensi Mahasiswa Menggunakan delphi2010 dengan RFID
